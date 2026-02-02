@@ -1,0 +1,141 @@
+# Claude Code Guidelines
+
+Project-specific instructions for Claude Code when working in this repository.
+
+## Project Context
+
+- **Project**: {PROJECT_NAME}
+- **Linear Team**: {LINEAR_TEAM}
+- **Linear Project**: {LINEAR_PROJECT}
+
+## Current Work Tracking (MANDATORY)
+
+**You MUST keep `.claude/current-work.md` updated at all times.**
+
+This file tracks what's currently being worked on. Update it:
+- **When starting work** - Set the active issue, title, and status
+- **During development** - Update status, recent changes, and files modified
+- **When completing work** - Clear the active issue or note completion
+- **When switching tasks** - Update to reflect the new work
+
+### What to Update
+
+```markdown
+## Active Issue
+- **Issue**: ACA-XXX (or "None" / "Ad-hoc")
+- **Title**: Brief description
+- **Branch**: current branch name
+- **Started**: YYYY-MM-DD
+
+## Status
+What you're currently doing (1-2 sentences)
+
+## Recent Changes
+- Change 1
+- Change 2
+
+## Files Modified
+- path/to/file1.tsx
+- path/to/file2.js
+
+## Next Steps
+- What needs to be done next
+
+## Notes
+Any important context, blockers, or decisions
+```
+
+### When to Update
+
+| Action | Update current-work.md |
+|--------|----------------------|
+| Start working on an issue | Set Active Issue, Status |
+| Make code changes | Add to Recent Changes, Files Modified |
+| Complete a task | Update Status, Next Steps |
+| Hit a blocker | Add to Notes |
+| Finish work | Clear Active Issue or mark complete |
+| Answer questions / research | Update Status with context |
+
+This ensures `/prime` can always provide accurate context about ongoing work.
+
+## Bug Documentation Policy
+
+**All bug fixes must be documented in Linear.**
+
+### When You Fix a Bug
+
+After fixing any bug (whether via `/bugfix` command or ad-hoc), you MUST:
+
+1. **Create a Linear issue** with:
+   - State: "Done"
+   - Label: "Bug"
+   - Project: "{LINEAR_PROJECT}" (or relevant project)
+
+2. **Include in the description**:
+   - What was broken (user-visible behavior)
+   - Root cause (technical explanation)
+   - What was changed to fix it
+   - Files modified
+   - Commit hash(es)
+
+### Detecting Bug Fixes
+
+A bug fix is indicated by:
+- Commits with `fix:` prefix
+- Changes that correct incorrect behavior
+- Resolving errors or exceptions
+- Fixing something that "wasn't working"
+
+### Example Linear Bug Format
+
+```markdown
+## Bug
+
+When clicking "Regenerate" on an email, the page showed "failed to fetch email" error.
+
+## Root Cause
+
+The old email was deleted before the new one was generated, causing React Query
+to get a 404 when refetching.
+
+## Fix
+
+Moved deleteEmail() call to after successful email generation.
+
+## Files Changed
+
+- app/client/src/pages/EmailDetailPage.tsx
+
+## Commits
+
+- abc1234 fix: Delete old email after new one is created
+```
+
+## Commit Message Conventions
+
+- `feat:` - New feature
+- `fix:` - Bug fix (MUST create Linear issue)
+- `chore:` - Maintenance tasks
+- `refactor:` - Code refactoring
+- `docs:` - Documentation changes
+- `ui:` - UI/UX changes
+
+## Code Style
+
+- Follow existing patterns in the codebase
+- Use TypeScript for frontend code
+- Use ES modules for backend code
+- Keep changes minimal and focused
+
+## Testing
+
+Before completing work:
+- Verify changes work as expected
+- Check for console errors
+- Test edge cases when relevant
+
+## Linear Integration
+
+- Use MCP tools (`mcp__linear__*`) for all Linear operations
+- Link issues to the relevant project
+- Update issue status when work is complete
